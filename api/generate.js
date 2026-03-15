@@ -6,8 +6,7 @@ export default async function handler(req, res) {
 
   try {
 
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const idea = body.idea;
+    const { idea } = req.body;
 
     const prompt = `
 You are a professional Sora video prompt engineer.
@@ -37,7 +36,7 @@ Make it detailed and ready for Sora video generation.
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4o-mini",
         messages: [
           {
             role: "system",
@@ -47,12 +46,17 @@ Make it detailed and ready for Sora video generation.
             role: "user",
             content: prompt
           }
-        ],
-        temperature: 0.7
+        ]
       })
     });
 
     const data = await response.json();
+
+    if (!data.choices) {
+      return res.status(500).json({
+        error: JSON.stringify(data)
+      });
+    }
 
     res.status(200).json({
       prompt: data.choices[0].message.content
