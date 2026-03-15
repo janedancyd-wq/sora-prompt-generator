@@ -12,6 +12,7 @@ async function generatePrompt() {
 
   const data = await response.json();
 
-  document.getElementById("result").innerText = data.prompt;
+  document.getElementById("result").innerText =
+    JSON.stringify(data, null, 2);
 
 }
