@@ -1,11 +1,17 @@
-function generatePrompt(){
+async function generatePrompt() {
 
-let topic=document.getElementById("topic").value;
+  const idea = document.getElementById("idea").value;
 
-let prompt=
-"Ultra realistic cinematic scene of "+topic+
-", natural lighting, high detail, 4k, shallow depth of field, handheld camera feel";
+  const response = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ idea })
+  });
 
-document.getElementById("result").value=prompt;
+  const data = await response.json();
+
+  document.getElementById("result").innerText = data.prompt;
 
 }
