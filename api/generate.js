@@ -6,7 +6,8 @@ export default async function handler(req, res) {
 
   try {
 
-    const { idea } = req.body;
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const idea = body.idea;
 
     const prompt = `
 You are a professional Sora video prompt engineer.
