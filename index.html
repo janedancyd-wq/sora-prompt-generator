@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Sora Prompt Generator</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Sora Prompt Generator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="container">
+    <h1>Sora Prompt Generator</h1>
 
-<div class="container">
-<h1>Sora Prompt Generator</h1>
+    <input id="topic" placeholder="Enter video idea...">
 
-<input id="idea" placeholder="Enter video idea...">
+    <button onclick="generatePrompt()">Generate Prompt</button>
 
-<button onclick="generatePrompt()">Generate Prompt</button>
+    <textarea id="result" placeholder="Your prompt will appear here"></textarea>
+  </div>
 
-<textarea id="result" placeholder="Your prompt will appear here"></textarea>
-</div>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
