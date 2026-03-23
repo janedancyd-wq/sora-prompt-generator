@@ -1,32 +1,67 @@
 export default async function handler(req, res) {
-
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-
     const { idea } = req.body;
 
     const prompt = `
-You are a professional Sora video prompt engineer.
+You are a viral short-form video expert.
 
-Create a cinematic AI video prompt based on this idea:
-
+Based on this idea:
 ${idea}
 
-The prompt should include:
+Create a COMPLETE viral toddler video package.
 
-Style
-Camera
-Lighting
-Scene
-Characters
-Action
-Mood
-Resolution
+OUTPUT FORMAT:
 
-Make it detailed and ready for Sora video generation.
+1. VIDEO SCRIPT
+Style:
+Ultra-realistic family vlog style
+
+Scene:
+Describe environment
+
+Characters:
+Cute toddler
+
+Action & Dialogue:
+Include funny toddler lines
+
+Hook:
+First 3 seconds viral moment
+
+Peak Moment:
+Funniest moment
+
+Ending:
+Funny or cute ending
+
+Mood:
+Cute, chaotic, funny
+
+Video Settings:
+Vertical 9:16, 10–15 seconds
+
+2. SORA PROMPT
+Write a ready-to-use prompt.
+
+3. YOUTUBE
+Title:
+Description:
+Tags: #shorts #toddler #funnybaby
+
+4. TIKTOK
+Caption:
+Hashtags: #fyp #baby
+
+5. XIAOHONGSHU
+标题：
+文案：
+标签：
+
+Make it viral and engaging.
 `;
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -40,34 +75,26 @@ Make it detailed and ready for Sora video generation.
         messages: [
           {
             role: "system",
-            content: "You are an expert AI video prompt generator."
+            content: "You are an expert viral video prompt generator."
           },
           {
             role: "user",
             content: prompt
           }
-        ]
+        ],
+        temperature: 0.7
       })
     });
 
     const data = await response.json();
-
-    if (!data.choices) {
-      return res.status(500).json({
-        error: JSON.stringify(data)
-      });
-    }
 
     res.status(200).json({
       prompt: data.choices[0].message.content
     });
 
   } catch (error) {
-
     res.status(500).json({
       error: error.message
     });
-
   }
-
 }
