@@ -1,48 +1,43 @@
 const prompt = `
-You are a viral short-video prompt expert.
+You are a viral short-video content expert.
 
-Create a HIGHLY engaging, emotionally viral toddler video prompt.
+Create 3 DIFFERENT viral toddler video concepts based on this idea:
 
 IDEA:
 ${idea}
 
-Requirements:
+Each version must include:
+
+VERSION A / B / C
+
+1. Hook (first 1–2 seconds, must grab attention)
+2. Scene
+3. Characters
+4. Action (step-by-step)
+5. Dialogue (short, natural, funny)
+6. Viral Trigger (why people will share it)
+7. Ending Punchline
 
 Style:
-Ultra-realistic family vlog style.
-Natural handheld phone camera.
-Warm, cozy, cinematic lighting.
+Ultra-realistic family vlog
+Handheld phone camera
+Warm natural lighting
+Cute + funny + emotional tone
 
-Hook (VERY IMPORTANT):
-The first 1–2 seconds must grab attention immediately.
+Rules:
+- Keep it SHORT (10–15 seconds)
+- Highly relatable
+- Unexpected toddler logic is key
+- No subtitles, no text
 
-Characters:
-- 1–2 year old toddler
-- expressive, emotional, cute, slightly dramatic
+Format clearly like:
 
-Scene:
-Simple home environment (living room / kitchen)
+=== VERSION A ===
+...
 
-Action:
-- Clear beginning → build → punchline
-- Include toddler movement + facial expressions
+=== VERSION B ===
+...
 
-Dialogue:
-- Short, natural English lines
-- Funny, unexpected toddler logic
-
-Viral Elements:
-- Relatable parenting moment
-- Emotional twist OR unexpected logic
-- Meme-worthy ending
-
-Ending:
-Strong punchline or reaction
-
-Constraints:
-NO subtitles
-NO text on screen
-NO watermark
-
-Output in clean structured format.
+=== VERSION C ===
+...
 `;
