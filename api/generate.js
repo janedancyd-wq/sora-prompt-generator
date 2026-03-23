@@ -1,43 +1,59 @@
-const prompt = `
-You are a viral short-video content expert.
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-Create 3 DIFFERENT viral toddler video concepts based on this idea:
+  try {
+    const { idea } = req.body;
 
-IDEA:
-${idea}
+    const prompt = `
+Create 3 viral toddler video ideas.
 
-Each version must include:
+Idea: ${idea}
 
-VERSION A / B / C
+Format:
+Version A / B / C
 
-1. Hook (first 1–2 seconds, must grab attention)
-2. Scene
-3. Characters
-4. Action (step-by-step)
-5. Dialogue (short, natural, funny)
-6. Viral Trigger (why people will share it)
-7. Ending Punchline
-
-Style:
-Ultra-realistic family vlog
-Handheld phone camera
-Warm natural lighting
-Cute + funny + emotional tone
-
-Rules:
-- Keep it SHORT (10–15 seconds)
-- Highly relatable
-- Unexpected toddler logic is key
-- No subtitles, no text
-
-Format clearly like:
-
-=== VERSION A ===
-...
-
-=== VERSION B ===
-...
-
-=== VERSION C ===
-...
+Each includes:
+Hook
+Scene
+Action
+Dialogue
+Ending
 `;
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: "You are a viral video expert." },
+          { role: "user", content: prompt }
+        ],
+        temperature: 0.7
+      })
+    });
+
+    const data = await response.json();
+
+    // 👇关键：如果 OpenAI 报错
+    if (!response.ok) {
+      return res.status(500).json({
+        error: data.error?.message || "OpenAI error"
+      });
+    }
+
+    return res.status(200).json({
+      prompt: data.choices[0].message.content
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+}
