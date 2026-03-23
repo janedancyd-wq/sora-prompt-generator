@@ -1,72 +1,46 @@
 function generatePrompt() {
+  const input = document.getElementById("topic");
+  const output = document.getElementById("result");
 
-  const idea = document.getElementById("topic").value;
+  if (!input || !output) {
+    alert("HTML ID mismatch");
+    return;
+  }
+
+  const idea = input.value;
 
   if (!idea) {
     alert("Please enter an idea");
     return;
   }
 
-  const hooks = [
-    "The toddler suddenly says something unexpected.",
-    "Dad is NOT ready for this question.",
-    "This moment gets awkward fast.",
-    "Mom tries not to laugh… but fails.",
-    "What the toddler says shocks everyone."
-  ];
+  const prompt = `🎬 Viral Toddler Video Prompt
 
-  const endings = [
-    "Dad freezes. Silence. Then bursts out laughing.",
-    "Mom loses it and laughs uncontrollably.",
-    "Toddler looks proud like a genius.",
-    "Camera shakes slightly from laughter.",
-    "Cut at the funniest moment."
-  ];
+Idea: ${idea}
 
-  const randomHook = hooks[Math.floor(Math.random() * hooks.length)];
-  const randomEnding = endings[Math.floor(Math.random() * endings.length)];
-
-  const prompt = `
-Style:
-Ultra-realistic family vlog style.
-Natural handheld phone-camera feel.
-Warm cozy home lighting.
-No subtitles, no watermark.
+Hook:
+The toddler says something unexpected in the first 3 seconds.
 
 Scene:
-A modern American living room.
-Soft natural lighting.
-Casual family atmosphere.
+A cozy American living room, warm lighting, handheld camera.
 
 Characters:
-A 2-year-old toddler (cute, expressive, curious).
-Dad (calm but easily amused).
-Mom filming casually.
+Cute expressive toddler + parent reacting.
 
-Action & Dialogue:
-Topic: ${idea}
+Action:
+Toddler speaks seriously and says something funny about "${idea}".
 
-${randomHook}
-
-The toddler speaks seriously and confidently.
-
-Include a short, funny dialogue between toddler and parent.
-Keep it natural, simple, and very relatable.
-
-Build a strong emotional + comedic moment.
+Parents react naturally → surprise → laughter.
 
 Ending:
-${randomEnding}
+Cut at peak funny moment.
 
-Mood:
-Cute, funny, slightly awkward, highly relatable.
-
-Video Length:
-8–12 seconds
+Style:
+Ultra-realistic, vlog style, no subtitles, no watermark.
 
 Format:
-Vertical 9:16
+Vertical 9:16, 8–12 seconds.
 `;
 
-  document.getElementById("result").value = prompt.trim();
+  output.value = prompt;
 }
