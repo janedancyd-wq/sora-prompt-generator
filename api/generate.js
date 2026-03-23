@@ -1,100 +1,48 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+const prompt = `
+You are a viral short-video prompt expert.
 
-  try {
-    const { idea } = req.body;
+Create a HIGHLY engaging, emotionally viral toddler video prompt.
 
-    const prompt = `
-You are a viral short-form video expert.
-
-Based on this idea:
+IDEA:
 ${idea}
 
-Create a COMPLETE viral toddler video package.
+Requirements:
 
-OUTPUT FORMAT:
-
-1. VIDEO SCRIPT
 Style:
-Ultra-realistic family vlog style
+Ultra-realistic family vlog style.
+Natural handheld phone camera.
+Warm, cozy, cinematic lighting.
 
-Scene:
-Describe environment
+Hook (VERY IMPORTANT):
+The first 1–2 seconds must grab attention immediately.
 
 Characters:
-Cute toddler
+- 1–2 year old toddler
+- expressive, emotional, cute, slightly dramatic
 
-Action & Dialogue:
-Include funny toddler lines
+Scene:
+Simple home environment (living room / kitchen)
 
-Hook:
-First 3 seconds viral moment
+Action:
+- Clear beginning → build → punchline
+- Include toddler movement + facial expressions
 
-Peak Moment:
-Funniest moment
+Dialogue:
+- Short, natural English lines
+- Funny, unexpected toddler logic
+
+Viral Elements:
+- Relatable parenting moment
+- Emotional twist OR unexpected logic
+- Meme-worthy ending
 
 Ending:
-Funny or cute ending
+Strong punchline or reaction
 
-Mood:
-Cute, chaotic, funny
+Constraints:
+NO subtitles
+NO text on screen
+NO watermark
 
-Video Settings:
-Vertical 9:16, 10–15 seconds
-
-2. SORA PROMPT
-Write a ready-to-use prompt.
-
-3. YOUTUBE
-Title:
-Description:
-Tags: #shorts #toddler #funnybaby
-
-4. TIKTOK
-Caption:
-Hashtags: #fyp #baby
-
-5. XIAOHONGSHU
-标题：
-文案：
-标签：
-
-Make it viral and engaging.
+Output in clean structured format.
 `;
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: "You are an expert viral video prompt generator."
-          },
-          {
-            role: "user",
-            content: prompt
-          }
-        ],
-        temperature: 0.7
-      })
-    });
-
-    const data = await response.json();
-
-    res.status(200).json({
-      prompt: data.choices[0].message.content
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      error: error.message
-    });
-  }
-}
